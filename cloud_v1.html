@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cloud SDK v1 Reference &#8212; Formant SDK Reference  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Agent SDK Reference" href="agent.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="cloud-sdk-v1-reference">
+<h1>Cloud SDK v1 Reference<a class="headerlink" href="#cloud-sdk-v1-reference" title="Permalink to this heading">¶</a></h1>
+<p>This section outlines the usage for each method of the Formant Cloud SDK v1.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">formant.sdk.cloud.v1.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">admin_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.formant.io/v1/admin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ingest_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.formant.io/v1/ingest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_api</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.formant.io/v1/queries'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>A client for interacting with the Formant Cloud. There are methods for:</p>
+<ul class="simple">
+<li><p>Ingesting telemetry datapoints for device(s)</p></li>
+<li><p>Query telemetry datapoints</p></li>
+<li><p>Query stream(s) last known value</p></li>
+<li><p>Create intervention requests</p></li>
+<li><p>Create intervention responses</p></li>
+</ul>
+<p>To authenticate the Cloud SDK v1 client, set the following
+environment variables with valid Formant credentials:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FORMANT_EMAIL</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FORMANT_PASSWORD</span></code></p></li>
+</ul>
+<div class="admonition-return-values admonition">
+<p class="admonition-title">Return values</p>
+<p>All methods of the Cloud SDK v1 client return a Dictionary object
+which can be parsed for response values.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.create_adapter">
+<span class="sig-name descname"><span class="pre">create_adapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.create_adapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an adapter in your organization. Full parameters can be found here:
+<a class="reference external" href="https://docs.formant.io/reference/adaptercontrollerpost">Adapter POST</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;execCommand&quot;</span><span class="p">:</span> <span class="s2">&quot;./start.sh&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/tmp/model.dat&quot;</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;adapters_name&quot;</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">create_adapter</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.create_command">
+<span class="sig-name descname"><span class="pre">create_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.create_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a command. Full parameters can be found here: 
+<a class="reference external" href="https://docs.formant.io/reference/commandtemplatecontrollerpost">Command template POST</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">deviceId</span><span class="p">:</span> <span class="s2">&quot;abc-123&quot;</span>
+    <span class="n">command</span><span class="p">:</span> <span class="s2">&quot;return_to_charge_station&quot;</span>
+    <span class="n">parameter</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;scrubberTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-11-03T19:38:34.203Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;A-2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;def-456&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;optional_name1&quot;</span>
+        <span class="p">}]</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">create_command</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.create_device">
+<span class="sig-name descname"><span class="pre">create_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">publicKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.create_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device_name</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Device name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.create_intervention_request">
+<span class="sig-name descname"><span class="pre">create_intervention_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.create_intervention_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an intervention request. Full parameters can be found here: 
+<a class="reference external" href="https://docs.formant.io/reference/interventionrequestcontrollerpost">Intervention request POST</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> – Intervention request parameters.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;A teleop for a customer is requested&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;interventionType&quot;</span><span class="p">:</span> <span class="s2">&quot;teleop&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-02-17T11:41:33.389-08:00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;deviceId&quot;</span><span class="p">:</span> <span class="s2">&quot;b306de84-33ca-4917-9218-f686730e24e0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;instruction&quot;</span><span class="p">:</span> <span class="s2">&quot;Look at the users item on the table&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">create_intervention_request</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.create_intervention_response">
+<span class="sig-name descname"><span class="pre">create_intervention_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.create_intervention_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a response to an intervention request. Full parameters can be found here:
+<a class="reference external" href="https://docs.formant.io/reference/interventionresponsecontrollerpost">Intervention response POST</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> – Intervention response parameters.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s2">&quot;interventionId&quot;</span><span class="p">:</span> <span class="s2">&quot;518e24fc-64ef-47bb-be5e-036a97aeafaa&quot;</span><span class="p">,</span>
+<span class="s2">&quot;interventionType&quot;</span><span class="p">:</span> <span class="s2">&quot;teleop&quot;</span><span class="p">,</span>
+<span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="p">:</span> <span class="s2">&quot;looks good!&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">create_intervention_response</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.generate_provisioning_token">
+<span class="sig-name descname"><span class="pre">generate_provisioning_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.generate_provisioning_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a provisioning token for a device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – ID of the device to provision.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.get_annotation_templates">
+<span class="sig-name descname"><span class="pre">get_annotation_templates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.get_annotation_templates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all annotation templates in this organization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.get_organization">
+<span class="sig-name descname"><span class="pre">get_organization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.get_organization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get this organization ID.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.get_organization_id">
+<span class="sig-name descname"><span class="pre">get_organization_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.get_organization_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets this organization ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Organization ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.get_user_id">
+<span class="sig-name descname"><span class="pre">get_user_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.get_user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets self user ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ID of this user.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.ingest">
+<span class="sig-name descname"><span class="pre">ingest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.ingest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ingests data to Formant.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Administrator credentials required.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">deviceId</span><span class="p">:</span> <span class="s2">&quot;ced176ab-f223-4466-b958-ff8d35261529&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;engine_temp&quot;</span><span class="p">,</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;sf&quot;</span><span class="p">},</span>
+    <span class="n">points</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">ingest</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.patch_device">
+<span class="sig-name descname"><span class="pre">patch_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.patch_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update device configuration. Full parameters can be found here: 
+<a class="reference external" href="https://docs.formant.io/reference/devicecontrollerpatch">Device PATCH</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_id</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – ID of the device to update.</p></li>
+<li><p><strong>params</strong> – Device configuration parameters to update.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">device_id</span> <span class="o">=</span> <span class="s1">&#39;abc-123&#39;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;desiredConfiguration&quot;</span><span class="p">:</span> <span class="mi">43</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">patch_device</span><span class="p">(</span><span class="n">device_id</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.post_device_configuration">
+<span class="sig-name descname"><span class="pre">post_device_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.post_device_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a device configuration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">device_id</span> <span class="o">=</span> <span class="s1">&#39;abc-123&#39;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;document&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">adapter</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="nb">id</span><span class="p">:</span> <span class="s2">&quot;84f98678-5f18-478d-aed8-631d9ea043a9&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;ROS-diagnostics&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;execCommand&quot;</span><span class="p">:</span> <span class="s2">&quot;./start.sh&quot;</span>
+            <span class="p">}],</span>
+        <span class="n">tags</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="n">telemetry</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">streams</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">post_device_configuration</span><span class="p">(</span><span class="n">device_id</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.provision_device">
+<span class="sig-name descname"><span class="pre">provision_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provisioningToken</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">publicKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.provision_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provision a device given an ID and a provisioning token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>provisioningToken</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Provisioning token from <code class="docutils literal notranslate"><span class="pre">generate_provisioning_token</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries datapoints from the Formant cloud. For more information, see 
+<a class="reference external" href="https://docs.formant.io/reference/querying-telemetry-data">Cloud SDK: Querying telemetry data</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">start</span><span class="p">:</span> <span class="s2">&quot;2021-01-01T01:00:00.000Z&quot;</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">:</span> <span class="s2">&quot;2021-01-01T02:00:00.000Z&quot;</span><span class="p">,</span>
+    <span class="n">deviceIds</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;99e8ee37-0a27-4a11-bba2-521facabefa3&quot;</span><span class="p">],</span>
+    <span class="n">names</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;engine_temp&quot;</span><span class="p">],</span>
+    <span class="n">types</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;numeric&quot;</span><span class="p">],</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:[</span><span class="s2">&quot;sf&quot;</span><span class="p">,</span><span class="s2">&quot;la&quot;</span><span class="p">]},</span>
+    <span class="n">notNames</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.query_commands">
+<span class="sig-name descname"><span class="pre">query_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.query_commands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get undelivered commands by device ID.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">deviceId</span><span class="p">:</span> <span class="s2">&quot;abc-123&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">query_commands</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.query_devices">
+<span class="sig-name descname"><span class="pre">query_devices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.query_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query devices in this organization. The full list of query parameters
+can be found here: <a class="reference external" href="https://docs.formant.io/reference/devicecontrollerquery">Device QUERY</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>object</em>) – Query parameters.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;model00.001&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:[</span><span class="s2">&quot;sf&quot;</span><span class="p">,</span> <span class="s2">&quot;la&quot;</span><span class="p">]},</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">query_devices</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.query_stream_current_value">
+<span class="sig-name descname"><span class="pre">query_stream_current_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.query_stream_current_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current value for streams which match query parameters.
+Full parameters can be found here: <a class="reference external" href="https://docs.formant.io/reference/streamcurrentvaluecontrollerquery">Stream current value QUERY</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">start</span><span class="p">:</span> <span class="s2">&quot;2021-01-01T01:00:00.000Z&quot;</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">:</span> <span class="s2">&quot;2021-01-01T02:00:00.000Z&quot;</span><span class="p">,</span>
+    <span class="n">deviceIds</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;99e8ee37-0a27-4a11-bba2-521facabefa3&quot;</span><span class="p">],</span>
+    <span class="n">names</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;engine_temp&quot;</span><span class="p">],</span>
+    <span class="n">types</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;numeric&quot;</span><span class="p">],</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:[</span><span class="s2">&quot;sf&quot;</span><span class="p">,</span><span class="s2">&quot;la&quot;</span><span class="p">]},</span>
+    <span class="n">notNames</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">query_stream_current_value</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.query_task_summaries">
+<span class="sig-name descname"><span class="pre">query_task_summaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.query_task_summaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all task summaries</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.query_task_summary_formats">
+<span class="sig-name descname"><span class="pre">query_task_summary_formats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.query_task_summary_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all task summary formants</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.upload_file">
+<span class="sig-name descname"><span class="pre">upload_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a file to the Formant cloud.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">path</span><span class="p">:</span> <span class="s2">&quot;/tmp/model.dat&quot;</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.upload_task_summary">
+<span class="sig-name descname"><span class="pre">upload_task_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_summary_format_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.upload_task_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a task summary.</p>
+<p>Task summary definition can be found here: <a class="reference external" href="https://docs.formant.io/reference/tasksummarycontrollerpost">Task summary POST</a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.cloud.v1.Client.upload_task_summary_format">
+<span class="sig-name descname"><span class="pre">upload_task_summary_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_summary_format</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.cloud.v1.Client.upload_task_summary_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a task summary format.</p>
+<p>Task summary format definition can be found here: <a class="reference external" href="https://docs.formant.io/reference/tasksummaryformatcontrollerpost">Task summary format POST</a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Formant SDK Reference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="agent.html">Agent SDK Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cloud SDK v1 Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#formant.sdk.cloud.v1.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="agent.html" title="previous chapter">Agent SDK Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025 Formant.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/cloud_v1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

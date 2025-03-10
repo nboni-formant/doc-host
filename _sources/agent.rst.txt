@@ -1,0 +1,7 @@
+Agent SDK Reference
+========================================
+
+This section outlines the usage for each method of the Formant Agent SDK.
+
+.. autoclass:: formant.sdk.agent.v1.Client
+   :members:

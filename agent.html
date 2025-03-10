@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Agent SDK Reference &#8212; Formant SDK Reference  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cloud SDK v1 Reference" href="cloud_v1.html" />
+    <link rel="prev" title="Formant SDK Reference" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="agent-sdk-reference">
+<h1>Agent SDK Reference<a class="headerlink" href="#agent-sdk-reference" title="Permalink to this heading">¶</a></h1>
+<p>This section outlines the usage for each method of the Formant Agent SDK.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">formant.sdk.agent.v1.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unix:///var/lib/formant/agent.sock'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_logging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_throttled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_unavailable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thread_pool_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>A client for interacting with the Formant agent.
+Automatically handles connection and reconnection to the agent.
+There are methods for:</p>
+<ul class="simple">
+<li><p>Ingesting telemetry datapoints</p></li>
+<li><p>Creating events</p></li>
+<li><p>Handling commands</p></li>
+<li><p>Ingesting transform frames</p></li>
+<li><p>Reading application configuration</p></li>
+<li><p>Handling teleop control datapoints</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>agent_url</strong> – The address of the Formant agent API.</p></li>
+<li><p><strong>enable_logging</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this client will log some information to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>.</p></li>
+<li><p><strong>ignore_throttled</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">telemetry</span> <span class="pre">datapoint</span> <span class="pre">throttle</span></code> errors
+will not raise Exceptions. Throttled datapoints are still valid for teleoperation.</p></li>
+<li><p><strong>ignore_unavailable</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">Formant</span> <span class="pre">agent</span> <span class="pre">unavailable</span></code> errors
+will not raise Exceptions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.call_cloud">
+<span class="sig-name descname"><span class="pre">call_cloud</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_formant_auth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_call</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_retryable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retryable_status_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.call_cloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows the user to call an endpoint of the Formant Admin API
+authenticated by the Formant agent instead of user credentials.</p>
+<p>API calls which allow <code class="docutils literal notranslate"><span class="pre">device</span></code> authentication can buffer and retry
+calls. For more information, see the following documentation:</p>
+<p><a class="reference external" href="https://docs.formant.io/reference/use-the-formant-agent-to-authenticate-api-calls">Use the Formant agent to authenticate API calls</a></p>
+<p><a class="reference external" href="https://docs.formant.io/reference/buffering-and-retrying-api-calls">Buffering and retrying API calls</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If buffering is enabled, you will not get a return value from this function.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint</strong> (<em>str</em>) – Full URL of the endpoint to call (can be found at <a class="reference external" href="https://docs.formant.io/reference">https://docs.formant.io/reference</a>).</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – The HTTP method to use (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;POST&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;PUT&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;GET&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;PATCH&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;DELETE&quot;</span></code>).</p></li>
+<li><p><strong>headers</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – Set the content type of your payload.</p></li>
+<li><p><strong>body</strong> (<em>str</em>) – Payload of the request (parameters found at <a class="reference external" href="https://docs.formant.io/reference">https://docs.formant.io/reference</a>).</p></li>
+<li><p><strong>require_formant_auth</strong> (<em>bool</em>) – Whether or not to use device authentication.
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">authorization</span></code> header is added automatically.</p></li>
+<li><p><strong>buffer_call</strong> (<em>bool</em>) – Whether or not to buffer the call.
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the call is buffered and will be retried if necessary.
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">call_cloud()</span></code> returns <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>is_retryable</strong> (<em>bool</em>) – (<code class="docutils literal notranslate"><span class="pre">buffer_call=True</span></code> only) Whether to retry the call if it fails.</p></li>
+<li><p><strong>retryable_status_codes</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – (<code class="docutils literal notranslate"><span class="pre">buffer_call=True</span></code> only) The status codes to retry on.
+A value of <code class="docutils literal notranslate"><span class="pre">[-1]</span></code> will retry on all <code class="docutils literal notranslate"><span class="pre">5xx</span></code> codes EXCEPT FOR the following: <code class="docutils literal notranslate"><span class="pre">[500,</span> <span class="pre">501,</span> <span class="pre">502,</span> <span class="pre">505,</span> <span class="pre">507,</span> <span class="pre">508,</span> <span class="pre">510,</span> <span class="pre">511]</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>agent_pb2.PostGenericAPIUnbufferedRequestResponse</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;acme&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">call_cloud</span><span class="p">(</span>
+    <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;https://api.formant.io/v1/admin/devices/query&quot;</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span>
+    <span class="p">},</span>
+    <span class="n">body</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span>
+    <span class="n">require_formant_auth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">buffer_call</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">is_retryable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">retryable_status_codes</span><span class="o">=</span><span class="p">[]</span>
+<span class="p">)</span>
+
+<span class="c1"># You get a response with ``statusCode`` and ``responseBody``</span>
+<span class="c1"># when ``buffer_call == False``.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">statusCode</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">responseBody</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.create_event">
+<span class="sig-name descname"><span class="pre">create_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.create_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and ingests an event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The text payload of the event</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the event</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix starting timestamp for the event.
+Uses the current time by default</p></li>
+<li><p><strong>end_timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix ending timestamp for the event.
+Must be greater than timestamp.
+If end_timestamp is supplied, the event will span a length of time</p></li>
+<li><p><strong>notify</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If True, the created event will trigger a Formant notification</p></li>
+<li><p><strong>severity</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">('info',</span> <span class="pre">'warning',</span> <span class="pre">'critical',</span> <span class="pre">'error')</span></code></span>) – The severity level of the event</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">fclient</span><span class="o">.</span><span class="n">create_event</span><span class="p">(</span>
+    <span class="s2">&quot;Confinement beam to warp frequency 0.4e17 hz&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Region&quot;</span><span class="p">:</span> <span class="s2">&quot;North&quot;</span><span class="p">},</span>
+    <span class="n">notify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">severity</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.create_labeling_intervention_request">
+<span class="sig-name descname"><span class="pre">create_labeling_intervention_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instruction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'image/jpg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.create_labeling_intervention_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an intervention request based on type “labeling”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> – (str) The name of the intervention</p></li>
+<li><p><strong>instruction</strong> – (str) The instructions detailing how to resolve the intervention</p></li>
+<li><p><strong>labels</strong> – (Dict[str, str]) An Array of labels</p></li>
+<li><p><strong>hint</strong> – (Optional[List[intervention_pb2.LabeledPolygon]]) An array of label polygons, X and Y coordinates with a label</p></li>
+<li><p><strong>url</strong> – (str) The path to local file or valid remote URL for remote files</p></li>
+<li><p><strong>content_type</strong> – (Literal[“image/jpg”, “image/png”]) The format of the encoded image or frame.
+Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;image/jpg&quot;</span></code>.</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+<li><p><strong>severity</strong> – (Literal[“info”, “warning”, “critical”, “error”]) The severity level of the event</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>intervention_pb2.InterventionRequest</p>
+</dd>
+</dl>
+<p>Each <code class="docutils literal notranslate"><span class="pre">label</span></code> in <code class="docutils literal notranslate"><span class="pre">labels</span></code> defined as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Label</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">string</span><span class="p">;</span>
+        <span class="n">string</span> <span class="n">display_name</span> <span class="o">=</span> <span class="n">string</span><span class="p">;</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p>Hint is an array of “LabeledPolygon”, defined as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hint</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">List</span> <span class="n">of</span> <span class="n">vertex</span><span class="p">,</span>
+    <span class="n">List</span> <span class="n">of</span> <span class="n">labels</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where each vertex is defined as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vertex</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.create_selection_intervention_request">
+<span class="sig-name descname"><span class="pre">create_selection_intervention_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instruction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'image/jpg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.create_selection_intervention_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an intervention request based on type <code class="docutils literal notranslate"><span class="pre">selection</span></code>.
+Takes an image url, options and an integer with an optional
+addition of instructions, and title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> – (str) The name of the intervention</p></li>
+<li><p><strong>instruction</strong> – (str) The instructions detailing how to resolve the intervention</p></li>
+<li><p><strong>options</strong> – (List[str]) The list with options to select from</p></li>
+<li><p><strong>hint</strong> – (int) The index of the suspected correct answer</p></li>
+<li><p><strong>url</strong> – (str) The path to local file or valid remote URL for remote files</p></li>
+<li><p><strong>content_type</strong> – (Literal[“image/jpg”, “image/png”]) The format of the encoded image or frame.
+Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;image/jpg&quot;</span></code></p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+<li><p><strong>severity</strong> – (Literal[“info”, “warning”, “critical”, “error”]) The severity level of the event</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>InterventionRequest</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">fclient</span><span class="o">.</span><span class="n">create_selection_intervention_request</span><span class="p">(</span>
+    <span class="s2">&quot;Which fruit is best?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Select the best grape&quot;</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">&quot;fruit_1&quot;</span><span class="p">,</span> <span class="s2">&quot;fruit_2&quot;</span><span class="p">,</span> <span class="s2">&quot;fruit_3&quot;</span><span class="p">],</span>
+    <span class="n">hint</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">image</span><span class="o">.</span><span class="n">jpeg</span>
+    <span class="n">severity</span><span class="o">=</span><span class="n">critical</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.custom_data_channel_binary_request_handler">
+<span class="sig-name descname"><span class="pre">custom_data_channel_binary_request_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.custom_data_channel_binary_request_handler" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_name</strong> – The name of the custom data channel to listen on.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="nd">@fclient</span><span class="o">.</span><span class="n">custom_data_channel_request_handler</span><span class="p">(</span><span class="s2">&quot;my_channel&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">request_data</span><span class="p">):</span>
+    <span class="c1"># Do something with request_data bytes</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">request_data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+
+    <span class="c1"># Return any bytes response</span>
+    <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;Hello.&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.custom_data_channel_request_handler">
+<span class="sig-name descname"><span class="pre">custom_data_channel_request_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.custom_data_channel_request_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a handler for requests sent by RequestDataChannel instances
+(part of the Formant toolkit).
+See: <a class="reference external" href="https://github.com/FormantIO/toolkit/tree/master/examples/request-response">https://github.com/FormantIO/toolkit/tree/master/examples/request-response</a>
+for an example.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel_name</strong> – The name of the custom data channel to listen on.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>GetCustomDataChannelMessageStreamResponse</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="nd">@fclient</span><span class="o">.</span><span class="n">custom_data_channel_request_handler</span><span class="p">(</span><span class="s2">&quot;my_channel&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">request_data</span><span class="p">):</span>
+    <span class="c1"># Do something with request_data string</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request_data</span><span class="p">))</span>
+
+    <span class="c1"># Return any string response</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello world!&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.get_agent_id">
+<span class="sig-name descname"><span class="pre">get_agent_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.get_agent_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the Device ID for this device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.get_app_config">
+<span class="sig-name descname"><span class="pre">get_app_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.get_app_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value for the given key that was set in
+Formant application configuration for this device,
+or returns the given default value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The application configuration key</p></li>
+<li><p><strong>args</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span>) – (One additional argument)
+The default value to return if the key is not found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">Function</span> <span class="pre">takes</span> <span class="pre">at</span> <span class="pre">most</span> <span class="pre">two</span> <span class="pre">args:</span> <span class="pre">(key:</span> <span class="pre">str,</span> <span class="pre">default:</span> <span class="pre">Any)</span></code></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.get_buffer_metadata">
+<span class="sig-name descname"><span class="pre">get_buffer_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.get_buffer_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current WebRTC buffer statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>agent_pb2.GetBufferMetadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.get_command_request">
+<span class="sig-name descname"><span class="pre">get_command_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.get_command_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>If there is a command request in the agent’s queue whose <code class="docutils literal notranslate"><span class="pre">command</span></code> value
+matches an element of the given command filter, takes and returns the
+command request.
+Otherwise, returns <code class="docutils literal notranslate"><span class="pre">None</span></code> if there are no matching command requests
+in the agent’s queue.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>command_filter</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – A list of command names.
+This method only returns commands whose names are in this list.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>CommandRequest, None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.get_config_blob_data">
+<span class="sig-name descname"><span class="pre">get_config_blob_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.get_config_blob_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the blob data defined in the device configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.get_intervention_response">
+<span class="sig-name descname"><span class="pre">get_intervention_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.get_intervention_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives request ID, and returns a response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request_id</strong> (<em>str</em>) – The ID of the intervention request
+to which this method responds</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – (Optional) Number of seconds to wait for a response.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>agent_pb2.GetInterventionResponse</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">create_selection_intervention_request</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">instruction</span><span class="o">=</span><span class="s2">&quot;instruction&quot;</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;option1&quot;</span><span class="p">,</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span> <span class="s2">&quot;option3&quot;</span><span class="p">],</span>
+    <span class="n">hint</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;/home/formantuser/Downloads/image.png&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># Waits 5 seconds for a response, then proceeds</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">get_intervention_response</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.get_teleop_info">
+<span class="sig-name descname"><span class="pre">get_teleop_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.get_teleop_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns current information about teleop connection count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>GetTeleopInfoResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_battery">
+<span class="sig-name descname"><span class="pre">post_battery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_battery" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a battery datapoint to a telemetry stream. Only percentage is required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>percentage</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – The battery charge percentage</p></li>
+<li><p><strong>voltage</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – The battery voltage</p></li>
+<li><p><strong>current</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – The battery current</p></li>
+<li><p><strong>charge</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – The battery charge</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_bitset">
+<span class="sig-name descname"><span class="pre">post_bitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitset_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_bitset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a bitset datapoint to a telemetry stream.
+A bitset is a collection of related boolean states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>bitset_dict</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]</span>) – The datapoint value, a dictionary mapping names to booleans</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">fclient</span><span class="o">.</span><span class="n">post_bitset</span><span class="p">(</span>
+    <span class="s2">&quot;example.bitset&quot;</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;standing&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;walking&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;sitting&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_file">
+<span class="sig-name descname"><span class="pre">post_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a file to a telemetry stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the file on</p></li>
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The file url: path to local file or valid remote URL for
+remote files</p></li>
+<li><p><strong>filename</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The file name: name displayed inside Formant module</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted file</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted file.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">fclient</span><span class="o">.</span><span class="n">post_file</span><span class="p">(</span>
+    <span class="s2">&quot;example.file&quot;</span><span class="p">,</span>
+    <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">planets</span><span class="o">.</span><span class="n">csv</span><span class="p">,</span>
+    <span class="n">planets</span><span class="o">.</span><span class="n">csv</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_geolocation">
+<span class="sig-name descname"><span class="pre">post_geolocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">altitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_geolocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a geolocation datapoint to a telemetry stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>latitude</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – The datapoint value’s latitude</p></li>
+<li><p><strong>longitude</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – The datapoint value’s longitude</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_image">
+<span class="sig-name descname"><span class="pre">post_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'image/jpg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post an image datapoint to a telemetry stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</span>) – The datapoint value: raw bytes of an encoded image or frame</p></li>
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The datapoint url: path to local file or valid remote URL for
+remote files</p></li>
+<li><p><strong>content_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">('image/jpg',</span> <span class="pre">'image/png',</span> <span class="pre">'video/h264')</span></code></span>) – The format of the encoded image or frame.
+Defaults to <code class="docutils literal notranslate"><span class="pre">image/jpg</span></code>.</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_json">
+<span class="sig-name descname"><span class="pre">post_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a JSON datapoint to a telemetry stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The encoded JSON datapoint value</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_numeric">
+<span class="sig-name descname"><span class="pre">post_numeric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_numeric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a numeric datapoint to a telemetry stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – The numeric datapoint value</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_numericset">
+<span class="sig-name descname"><span class="pre">post_numericset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerics_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_numericset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a numeric set datapoint to a telemetry stream.
+Numeric sets are collections of related numeric datapoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>numerics_dict</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]]</span>) – The numeric set datapoint value,
+a dictionary mapping names to (numeric value, units) tuples.</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">fclient</span><span class="o">.</span><span class="n">post_numericset</span><span class="p">(</span>
+    <span class="s2">&quot;example.numericset2&quot;</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;frequency&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">998</span><span class="p">,</span> <span class="s2">&quot;Hz&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;usage&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;percent&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;warp factor&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_task_summary">
+<span class="sig-name descname"><span class="pre">post_task_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_summary_format_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_summary_report</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_summary_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api.formant.io/v1/admin/task-summaries/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_request_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_task_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads a task summary to the Formant cloud in the provided task summary format.</p>
+<p>You must first create a task summary format and add it to Formant. See <a class="reference external" href="https://docs.formant.io/docs/create-a-task-summary">Create a task summary</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_summary_format_id</strong> (<em>str</em>) – ID of the task summary format which describes this task summary.</p></li>
+<li><p><strong>task_summary_report</strong> (<em>dict</em>) – Data for this task summary in key-value pairs, as described by the task summary format.</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – Message associated with this task summary.</p></li>
+<li><p><strong>task_id</strong> (<em>str</em>) – Enter a unique identifier for this task summary.</p></li>
+<li><p><strong>start_time</strong> (<em>str</em>) – Start datetime of the data range relevant to this event (ISO 8601 format).</p></li>
+<li><p><strong>end_time</strong> (<em>str</em>) – (Optional) End time of the data range relevant to this event.</p></li>
+<li><p><strong>task_summary_url</strong> (<em>str</em>) – (Optional) The URL to which to post the task summary.</p></li>
+<li><p><strong>additional_request_kwargs</strong> (<em>dict</em>) – (Optional) Additional request kwargs to pass in the POST request. 
+These will be added to the body of the request as key-value pairs.
+See all available request kwargs at <a class="reference external" href="https://docs.formant.io/reference/tasksummarycontrollerpost">Task Summary POST</a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing task summary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_text">
+<span class="sig-name descname"><span class="pre">post_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a text datapoint to a stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream to post the datapoint on</p></li>
+<li><p><strong>value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The text datapoint value</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags to include on the posted datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the posted datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.agent.v1</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">fclient</span><span class="o">.</span><span class="n">post_text</span><span class="p">(</span>
+    <span class="s2">&quot;example.text&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Processed 9 items&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.post_transform_frame">
+<span class="sig-name descname"><span class="pre">post_transform_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child_frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.post_transform_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a transform frame, used to position datapoints in 3D space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_frame</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The parent frame of the posted transform</p></li>
+<li><p><strong>child_frame</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The child frame of the posted transform</p></li>
+<li><p><strong>tx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – x-translation</p></li>
+<li><p><strong>ty</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – y-translation</p></li>
+<li><p><strong>tz</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – z-translation</p></li>
+<li><p><strong>rx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – x-rotation (quaternion)</p></li>
+<li><p><strong>ry</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – y-rotation (quaternion)</p></li>
+<li><p><strong>rz</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – z-rotation (quaternion)</p></li>
+<li><p><strong>rw</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – w-rotation (quaternion)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_battery">
+<span class="sig-name descname"><span class="pre">prepare_battery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_battery" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a battery datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>percentage</strong> – (Union[int, float]) The battery charge percentage</p></li>
+<li><p><strong>voltage</strong> – (Optional[Union[int, float]]) The battery voltage (optional)</p></li>
+<li><p><strong>current</strong> – (Optional[Union[int, float]]) The battery current (optional)</p></li>
+<li><p><strong>charge</strong> – (Optional[Union[int, float]]) The battery charge (optional)</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The prepared battery datapoint</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datapoint_pb2.Datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_bitset">
+<span class="sig-name descname"><span class="pre">prepare_bitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitset_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_bitset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a bitset datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>bitset_dict</strong> – (Dict[str, bool]) The datapoint value, a dictionary mapping names to booleans</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>datapoint_pb2.Datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_file">
+<span class="sig-name descname"><span class="pre">prepare_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a file datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>url</strong> – (str) The file url: path to a local file or valid remote URL for remote files</p></li>
+<li><p><strong>filename</strong> – (Optional[str]) The file name: name displayed inside Formant module</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The prepared file datapoint</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datapoint_pb2.Datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_geolocation">
+<span class="sig-name descname"><span class="pre">prepare_geolocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">altitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_geolocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a geolocation datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>latitude</strong> – (Union[float, int]) The datapoint value’s latitude</p></li>
+<li><p><strong>longitude</strong> – (Union[float, int]) The datapoint value’s longitude</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+<li><p><strong>altitude</strong> – (Union[float, int]) The altitude value (optional)</p></li>
+<li><p><strong>orientation</strong> – (Union[float, int]) The orientation value (optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The prepared geolocation datapoint</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datapoint_pb2.Datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_image">
+<span class="sig-name descname"><span class="pre">prepare_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'image/jpg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare an image datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>value</strong> – (Optional[bytes]) The datapoint value: raw bytes of an encoded image or frame</p></li>
+<li><p><strong>url</strong> – (Optional[str]) The datapoint url: path to a local file or valid remote URL for
+remote files</p></li>
+<li><p><strong>content_type</strong> – (Literal[“image/jpg”, “image/png”, “video/h264”]) The format of the encoded image or frame.
+Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;image/jpg&quot;</span></code>.</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>datapoint_pb2.Datapoint</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">InvalidArgument:</span> <span class="pre">One</span> <span class="pre">of</span> <span class="pre">[url,</span> <span class="pre">value]</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">used.</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_json">
+<span class="sig-name descname"><span class="pre">prepare_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a JSON datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>value</strong> – (str) The encoded JSON datapoint value</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>datapoint_pb2.Datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_numeric">
+<span class="sig-name descname"><span class="pre">prepare_numeric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_numeric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a numeric datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>value</strong> – (Union[float, int]) The numeric datapoint value</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>datapoint_pb2.Datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_numericset">
+<span class="sig-name descname"><span class="pre">prepare_numericset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerics_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_numericset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a numeric set datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> – (str) The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>numerics_dict</strong> – (Dict[str, Tuple[Union[float, int], Optional[str]]]) The numeric set datapoint value,
+a dictionary mapping names to (numeric value, units) tuples.</p></li>
+<li><p><strong>tags</strong> – (Optional[Dict[str, str]]) Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> – (Optional[int]) Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>The prepared numeric set datapoint</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">value</span> <span class="pre">v</span> <span class="pre">for</span> <span class="pre">key</span> <span class="pre">k</span> <span class="pre">in</span> <span class="pre">numericset</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">length</span> <span class="pre">of</span> <span class="pre">2</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.prepare_text">
+<span class="sig-name descname"><span class="pre">prepare_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.prepare_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a text datapoint without posting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Formant stream for the datapoint</p></li>
+<li><p><strong>value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The text datapoint value</p></li>
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – Tags for the datapoint</p></li>
+<li><p><strong>timestamp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Unix timestamp in milliseconds for the datapoint.
+Uses the current time by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>datapoint_pb2.Datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.register_command_request_callback">
+<span class="sig-name descname"><span class="pre">register_command_request_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.register_command_request_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command requests issued to the agent whose <code class="docutils literal notranslate"><span class="pre">command</span></code> value matches an element
+of the given command filter will be streamed into the provided callback.
+If no command filter is provided, all command requests will be handled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRequest</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – A callback that will be executed on command requests
+as they are received by the Formant agent.</p></li>
+<li><p><strong>command_filter</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – A list of command names. The provided callback
+is only executed on commands whose names are in this list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.register_config_update_callback">
+<span class="sig-name descname"><span class="pre">register_config_update_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.register_config_update_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a function to the list of callbacks that are executed by the client
+when this device receives updated configuration from Formant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></span>) – The configuration update callback to be registered.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.register_custom_data_channel_message_callback">
+<span class="sig-name descname"><span class="pre">register_custom_data_channel_message_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.register_custom_data_channel_message_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a callback on data presence on the specified data channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – A callback that will be called with messages
+received on the specified custom data channel.</p></li>
+<li><p><strong>channel_name_filter</strong> – An optional allow list of custom channel names
+for this callback.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.register_telemetry_listener_callback">
+<span class="sig-name descname"><span class="pre">register_telemetry_listener_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.register_telemetry_listener_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Datapoints posted to the Formant agent whose “stream” value matches an element
+of the given stream filter will be streamed into the provided callback.
+If no stream filter is provided, datapoints from all streams
+will be received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – A callback that will be called when a datapoint is posted
+to the Formant agent</p></li>
+<li><p><strong>stream_filter</strong> – A list of stream names. The provided callback
+is only called for datapoints whose stream name is in this list</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.register_teleop_callback">
+<span class="sig-name descname"><span class="pre">register_teleop_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.register_teleop_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control datapoints received from teleop whose <code class="docutils literal notranslate"><span class="pre">stream</span></code> value matches an element
+of the given stream filter will be streamed into the provided callback.
+If no stream filter is provided, control datapoints from all streams
+will be received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">ControlDatapoint</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – A callback that will be executed on teleop control datapoints as they
+are received by the Formant agent</p></li>
+<li><p><strong>stream_filter</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – A list of stream names. The provided callback
+is only exectued on control datapoints whose names are in this list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.register_teleop_heartbeat_callback">
+<span class="sig-name descname"><span class="pre">register_teleop_heartbeat_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.register_teleop_heartbeat_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>The provided callback will be called once each time a heartbeat
+is received over Formant teleop. Heartbeats are streamed from the
+operator machine at 20Hz on a UDP-like channel. This method can be used
+to quickly detect teleop disconnections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> – A callback that will be called when a heartbeat is received.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.send_command_response">
+<span class="sig-name descname"><span class="pre">send_command_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datapoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.send_command_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends a command response for an identified command request to Formant.
+Returns an error if there was a problem sending the command response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The ID of the command request to which this method responds</p></li>
+<li><p><strong>success</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Whether the command was successfully executed</p></li>
+<li><p><strong>datapoint</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Datapoint</span></code>]</span>) – A datapoint related to the command. Can attach a datapoint
+to a command response. E.g., if a command fails, can ingest a text datapoint
+with an error message related to the failure of the command.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.send_on_custom_data_channel">
+<span class="sig-name descname"><span class="pre">send_on_custom_data_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.send_on_custom_data_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends data on custom data channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel_name</strong> – (str) The name of the channel over which to send data</p></li>
+<li><p><strong>payload</strong> – (bytes) The data payload to send.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.set_base_frame_id">
+<span class="sig-name descname"><span class="pre">set_base_frame_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_reference_frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.set_base_frame_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the base reference frame for tf tree ingestion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>base_reference_frame</strong> – The base reference frame for the tf tree.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.unregister_command_request_callback">
+<span class="sig-name descname"><span class="pre">unregister_command_request_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.unregister_command_request_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters previously registered command request callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRequest</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – The command request callback to be unregistered</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.unregister_config_update_callback">
+<span class="sig-name descname"><span class="pre">unregister_config_update_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.unregister_config_update_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a function from the list of callbacks that are executed by the client
+when this device receives updated configuration from Formant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></span>) – The configuration update callback to be unregistered.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.unregister_custom_data_channel_message_callback">
+<span class="sig-name descname"><span class="pre">unregister_custom_data_channel_message_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.unregister_custom_data_channel_message_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters previously registered custom data channel callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> – The custom data channel message callback to be unregistered.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.unregister_telemetry_listener_callback">
+<span class="sig-name descname"><span class="pre">unregister_telemetry_listener_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.unregister_telemetry_listener_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters previously registered telemetry loopback callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> – The telemetry loopback callback to be unregistered</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.unregister_teleop_callback">
+<span class="sig-name descname"><span class="pre">unregister_teleop_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.unregister_teleop_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters previously registered teleop callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">ControlDatapoint</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – The teleop callback to be unregistered</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="formant.sdk.agent.v1.Client.unregister_teleop_heartbeat_callback">
+<span class="sig-name descname"><span class="pre">unregister_teleop_heartbeat_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#formant.sdk.agent.v1.Client.unregister_teleop_heartbeat_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters previously registered teleop heartbeat callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> – The teleop heartbeat callback to be unregistered</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Formant SDK Reference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Agent SDK Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#formant.sdk.agent.v1.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_v1.html">Cloud SDK v1 Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Formant SDK Reference</a></li>
+      <li>Next: <a href="cloud_v1.html" title="next chapter">Cloud SDK v1 Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025 Formant.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/agent.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
