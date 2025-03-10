@@ -1,0 +1,7 @@
+Cloud SDK v1 Reference
+========================================
+
+This section outlines the usage for each method of the Formant Cloud SDK v1.
+
+.. autoclass:: formant.sdk.cloud.v1.Client
+   :members:
