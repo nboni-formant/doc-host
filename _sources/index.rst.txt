@@ -7,4 +7,3 @@ Formant SDK Reference
 
    agent
    cloud_v1
-   .. cloud_v2
