@@ -230,16 +230,23 @@ which can be parsed for response values.</p>
 <p class="admonition-title">Note</p>
 <p>Administrator credentials required.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a complete syntax reference for the <code class="docutils literal notranslate"><span class="pre">points</span></code> parameter,
+see <a class="reference external" href="https://github.com/FormantIO/formant/blob/master/examples/python/formant_module/cloud/ingest.py">our ingest example</a>.</p>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">formant.sdk.cloud.v1</span> <span class="kn">import</span> <span class="n">Client</span>
 
 <span class="n">fclient</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
 
-<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">deviceId</span><span class="p">:</span> <span class="s2">&quot;ced176ab-f223-4466-b958-ff8d35261529&quot;</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;engine_temp&quot;</span><span class="p">,</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
-    <span class="n">tags</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;sf&quot;</span><span class="p">},</span>
-    <span class="n">points</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span> 
+    <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">{[</span>
+        <span class="s2">&quot;deviceId&quot;</span><span class="p">:</span> <span class="s2">&quot;ced176ab-f223-4466-b958-ff8d35261529&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;engine_temp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;location&quot;</span><span class="p">:</span><span class="s2">&quot;sf&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+    <span class="p">]}</span>
 <span class="p">}</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">fclient</span><span class="o">.</span><span class="n">ingest</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
